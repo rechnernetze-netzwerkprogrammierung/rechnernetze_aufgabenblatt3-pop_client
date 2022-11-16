@@ -18,7 +18,11 @@ public class SendingThread extends Thread {
     public void run() {
         while (!interrupted()) {
             byte[] data = session.processData();
-            if (data != null) sendData(data);
+            if (data != null) {
+                sendData(data);
+                sendData("\n".getBytes());
+            }
+
         }
     }
 

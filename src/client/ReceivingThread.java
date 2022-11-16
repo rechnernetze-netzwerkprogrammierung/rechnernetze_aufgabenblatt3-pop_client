@@ -21,7 +21,7 @@ public class ReceivingThread extends Thread {
                 char c;
                 StringBuilder builder = new StringBuilder();
                 while ((c= (char) receive.read())!= '\n') builder.append(c);
-                System.out.println("Received" + builder.toString());
+                System.out.println(builder.toString());
             }
             catch (SocketException e) {
                 System.out.println("client.ReceivingThread: shutting down because connection reset ... ");

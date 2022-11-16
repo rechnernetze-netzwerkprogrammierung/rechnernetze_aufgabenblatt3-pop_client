@@ -33,6 +33,13 @@ public class CommandLineInterface implements Runnable {
 
             for (int i = 0; i < words.length; i++) {
                 switch (words[i]) {
+                    case "CAPA":
+                        session.pushInQueue("CAPA".getBytes());
+                        break;
+                    case "USER":
+                        if (!hasNextWord(words, i)) throw new IllegalArgumentException("PASS needs argument!");
+                        session.pushInQueue(("USER " + words[++i]).getBytes());
+                        break;
                     case "PASS":
                         if (!hasNextWord(words, i)) return;
                         session.pushInQueue(("PASS " + words[++i] + "\n").getBytes());
@@ -64,7 +71,7 @@ public class CommandLineInterface implements Runnable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             System.out.println("Input exception");
         }
     }
@@ -82,6 +89,8 @@ public class CommandLineInterface implements Runnable {
 
     private void printHelp() {
         System.out.println("Synopsis command [arg] \n"
+                + "CAPA                     get state or command list\n"
+                + "USER <your username>     start auth with your username\n"
                 + "PASS <your password>     deliver the password to the server\n"
                 + "STAT                     request num and size messages\n"
                 + "TOP n                    request header of mail n\n"
